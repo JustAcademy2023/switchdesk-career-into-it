@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SwitchDesk | How to Switch Careers Into IT Without a Technical Background</title>
+<meta name="description" content="An interactive service desk for career switchers. Find your IT lane, translate your old job into IT skills and follow a ninety day ticket board.">
+<style>
+:root{
+  --ink:#0f172a;--ink2:#334155;--cream:#fff8ea;--paper:#ffffff;
+  --mint:#14b8a6;--mintsoft:#ccfbf1;--amber:#fbbf24;--ambersoft:#fef3c7;
+  --coral:#fb7185;--coralsoft:#ffe4e6;--indigo:#6366f1;--line:#e7dcc4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;
+  background-image:radial-gradient(circle at 1px 1px,#e9dcc0 1px,transparent 0);background-size:26px 26px}
+a{color:inherit}
+.wrap{width:min(1120px,92%);margin:0 auto}
+.mono{font-family:"Courier New",ui-monospace,monospace}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,248,234,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.2rem}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--ink);display:grid;place-items:center;box-shadow:3px 3px 0 var(--mint)}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap}
+.navlinks a{text-decoration:none;font-size:.92rem;font-weight:700;padding:7px 12px;border-radius:999px;border:2px solid transparent}
+.navlinks a:hover{border-color:var(--ink);background:var(--amber)}
+.btn{display:inline-block;text-decoration:none;font-weight:800;padding:12px 20px;border-radius:14px;border:2px solid var(--ink);background:var(--mint);color:var(--ink);box-shadow:4px 4px 0 var(--ink);cursor:pointer;font-size:1rem;font-family:inherit;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn.alt{background:var(--paper)}
+.btn.amber{background:var(--amber)}
+
+/* hero */
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+.tag{display:inline-block;background:var(--ink);color:var(--amber);padding:5px 12px;border-radius:999px;font-size:.8rem;letter-spacing:.08em;font-weight:800}
+h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.08;margin:14px 0 16px;letter-spacing:-.02em}
+h1 mark{background:linear-gradient(transparent 58%,var(--amber) 58%);color:inherit;padding:0 4px}
+.lead{font-size:1.1rem;color:var(--ink2);max-width:540px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+.ticket{background:var(--paper);border:2px solid var(--ink);border-radius:20px;box-shadow:8px 8px 0 var(--ink);position:relative;overflow:hidden}
+.ticket .top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--ink);color:#fff;font-size:.85rem}
+.ticket .body{padding:20px}
+.ticket .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:2px dashed var(--line);font-size:.95rem}
+.ticket .row:last-child{border:0}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:800;border:2px solid var(--ink)}
+.b-open{background:var(--coralsoft)}.b-prog{background:var(--ambersoft)}.b-done{background:var(--mintsoft)}
+.steps{display:flex;gap:8px;margin-top:16px}
+.step{flex:1;text-align:center;font-size:.78rem;font-weight:800;padding:8px 4px;border-radius:10px;border:2px solid var(--ink);background:#f3ead4;cursor:pointer;transition:.2s}
+.step.on{background:var(--mint)}
+.cursor{display:inline-block;width:9px;height:1.1em;background:var(--ink);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.stat{background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:10px 16px;box-shadow:3px 3px 0 var(--ink)}
+.stat b{display:block;font-size:1.5rem}
+
+/* sections */
+section{padding:56px 0}
+.kicker{font-weight:800;color:var(--indigo);letter-spacing:.1em;font-size:.82rem}
+h2{font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.15;margin:6px 0 10px}
+.sub{color:var(--ink2);max-width:620px;margin-bottom:26px}
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:22px;box-shadow:5px 5px 0 var(--ink)}
+
+/* triage */
+.quiz{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.q h3{margin-bottom:12px;font-size:1.15rem}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;font-family:inherit;font-size:1rem;padding:12px 14px;border:2px solid var(--ink);border-radius:12px;background:#fffdf6;cursor:pointer;transition:.15s}
+.opt:hover{background:var(--ambersoft);transform:translateX(4px)}
+.opt.sel{background:var(--mint)}
+.prog{height:12px;border:2px solid var(--ink);border-radius:99px;background:#fff;margin-bottom:16px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--coral);transition:width .4s}
+.result{min-height:260px;display:flex;flex-direction:column;justify-content:center}
+.result h3{font-size:1.5rem;margin:8px 0}
+.result p{color:var(--ink2);margin-bottom:14px}
+
+/* translator */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.chip{font-family:inherit;font-weight:800;font-size:.95rem;padding:9px 16px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);cursor:pointer;transition:.15s}
+.chip:hover{background:var(--ambersoft)}
+.chip.on{background:var(--ink);color:var(--amber)}
+.trans{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}
+.arrow{font-size:2rem;font-weight:800;color:var(--coral)}
+.trans .card h4{font-size:.8rem;letter-spacing:.1em;color:var(--indigo);margin-bottom:8px}
+
+/* roles */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.role{cursor:pointer;transition:transform .2s;position:relative}
+.role:hover{transform:translateY(-6px) rotate(-.6deg)}
+.role .ico{font-size:1.9rem}
+.role h3{margin:8px 0 6px}
+.role p{font-size:.93rem;color:var(--ink2)}
+.role .more{max-height:0;overflow:hidden;transition:max-height .35s;font-size:.9rem}
+.role.open .more{max-height:170px;margin-top:10px}
+.pill{display:inline-block;font-size:.75rem;font-weight:800;padding:2px 10px;border-radius:99px;background:var(--mintsoft);border:2px solid var(--ink);margin:6px 4px 0 0}
+
+/* board */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.col h3{display:flex;justify-content:space-between;margin-bottom:12px}
+.task{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;margin-bottom:10px;border:2px solid var(--ink);border-radius:12px;background:#fffdf6;cursor:pointer;transition:.15s;font-size:.93rem;user-select:none}
+.task:hover{background:var(--ambersoft)}
+.task .box{flex:0 0 20px;height:20px;border:2px solid var(--ink);border-radius:6px;background:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:800;margin-top:2px}
+.task.done{background:var(--mintsoft);text-decoration:line-through;color:#5b6b78}
+.task.done .box{background:var(--mint)}
+.meter{margin-top:22px}
+.msg{margin-top:10px;font-weight:800}
+
+/* links */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.link{display:flex;flex-direction:column;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.link:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.link .lab{font-size:.75rem;font-weight:800;letter-spacing:.1em}
+.link h3{margin:6px 0;font-size:1.1rem}
+.link p{font-size:.9rem;color:var(--ink2);flex:1}
+.link .go{margin-top:12px;font-weight:800}
+.c1{background:var(--mintsoft)}.c2{background:var(--ambersoft)}.c3{background:var(--coralsoft)}.c4{background:#e0e7ff}
+
+footer{margin-top:40px;background:var(--ink);color:#e2e8f0;border-top:4px solid var(--amber)}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;padding:40px 0}
+footer h4{color:var(--amber);margin-bottom:10px}
+footer a{display:block;text-decoration:none;padding:3px 0;color:#cbd5e1;font-size:.93rem}
+footer a:hover{color:var(--mint)}
+.copy{border-top:1px solid #1e293b;padding:14px 0;font-size:.85rem;color:#94a3b8;text-align:center}
+
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--amber);padding:12px 22px;border-radius:14px;font-weight:800;transition:transform .4s;z-index:99;border:2px solid var(--amber);max-width:90%}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:860px){
+  .hero,.quiz,.board,.foot{grid-template-columns:1fr}
+  .trans{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}
+  .navlinks{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="SwitchDesk home">
+      <span class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 8h13l-3-3M20 16H7l3 3" stroke="#14b8a6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="19" cy="8" r="2" fill="#fbbf24"/>
+        </svg>
+      </span>
+      SwitchDesk
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="#triage">Find My Lane</a>
+      <a href="#translate">Skill Translator</a>
+      <a href="#roles">Role Map</a>
+      <a href="#board">Ninety Day Board</a>
+      <a href="#resources">Resources</a>
+    </nav>
+    <a class="btn amber" href="#triage">Open a Ticket</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+  <div class="hero">
+    <div>
+      <span class="tag">SERVICE DESK FOR CAREER SWITCHERS</span>
+      <h1>Switch careers into <mark>IT</mark> without a technical background.</h1>
+      <p class="lead">No degree in computers? No problem. Think of this page as a friendly service desk. Raise a ticket, get triaged to the right lane, translate your old job into IT skills and tick off a ninety day plan one card at a time.</p>
+      <div class="cta">
+        <a class="btn" href="#triage">Start Triage</a>
+        <a class="btn alt" href="https://www.justacademy.co/blog-detail/how-to-switch-careers-into-it-without-a-technical-background" target="_blank" rel="noopener">Read the Full Guide</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b data-count="5">0</b>IT lanes explored</div>
+        <div class="stat"><b data-count="6">0</b>old jobs translated</div>
+        <div class="stat"><b data-count="90">0</b>day starter plan</div>
+      </div>
+    </div>
+
+    <div class="ticket" aria-label="Sample ticket">
+      <div class="top mono"><span>TICKET 0001</span><span id="clock">SwitchDesk</span></div>
+      <div class="body">
+        <div class="row"><span>Subject</span><b class="mono"><span id="typed"></span><span class="cursor"></span></b></div>
+        <div class="row"><span>Requester</span><b>You, brave beginner</b></div>
+        <div class="row"><span>Priority</span><span class="badge b-prog">High, start today</span></div>
+        <div class="row"><span>Status</span><span class="badge b-open" id="hstatus">OPEN</span></div>
+        <div class="steps" id="steps">
+          <div class="step on" data-s="0">Open</div>
+          <div class="step" data-s="1">In Progress</div>
+          <div class="step" data-s="2">Resolved</div>
+        </div>
+        <p style="font-size:.85rem;color:#64748b;margin-top:12px">Tap a status to move the ticket along.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="triage">
+    <span class="kicker">STEP ONE, TRIAGE</span>
+    <h2>Which IT lane suits you?</h2>
+    <p class="sub">Three quick questions, no sign up, no wrong answers. We will point you to a lane and a resource to start with.</p>
+    <div class="quiz">
+      <div class="card q">
+        <div class="prog"><i id="qbar"></i></div>
+        <div id="qbox"></div>
+      </div>
+      <div class="card result c2" id="qres">
+        <span class="kicker">YOUR RESULT WILL APPEAR HERE</span>
+        <h3>Waiting for your answers</h3>
+        <p>Pick an option on the left to begin. Each answer nudges you toward a lane.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="translate">
+    <span class="kicker">STEP TWO, TRANSLATE</span>
+    <h2>Your old job is a secret weapon</h2>
+    <p class="sub">Recruiters love real experience. Tap your background and see how it reads in IT language.</p>
+    <div class="chips" id="chips"></div>
+    <div class="trans">
+      <div class="card c3"><h4>WHAT YOU DID</h4><p id="from"></p></div>
+      <div class="arrow">&rarr;</div>
+      <div class="card c1"><h4>HOW IT READS IN IT</h4><p id="to"></p><div id="tpills"></div></div>
+    </div>
+  </section>
+
+  <section id="roles">
+    <span class="kicker">STEP THREE, EXPLORE</span>
+    <h2>The role map, no coding required to begin</h2>
+    <p class="sub">Tap a card to open it. Many of these lanes start with support and grow from there.</p>
+    <div class="grid" id="rolegrid"></div>
+  </section>
+
+  <section id="board">
+    <span class="kicker">STEP FOUR, ACT</span>
+    <h2>The ninety day ticket board</h2>
+    <p class="sub">Click a card when you finish it. Your progress is saved in this browser.</p>
+    <div class="board" id="boardgrid"></div>
+    <div class="meter card c4">
+      <b id="plabel">0 of 12 tickets resolved</b>
+      <div class="prog" style="margin:10px 0 0"><i id="pbar" style="background:var(--mint)"></i></div>
+      <div class="msg" id="pmsg">Everything starts with one small ticket.</div>
+    </div>
+  </section>
+
+  <section id="resources">
+    <span class="kicker">KEEP GOING</span>
+    <h2>Courses and reading to take the next step</h2>
+    <p class="sub">Hand picked links for Hyderabad learners and anyone building toward their first IT role.</p>
+
+    <h3 style="margin-bottom:14px">Courses and bootcamp</h3>
+    <div class="lgrid" style="margin-bottom:34px">
+      <a class="card link c1" href="https://www.justacademy.co/job-bootcamp-detail/hyderabad/data-analytics-bootcamp-in-hyderabad-online-live-training-with-real-world-projects" target="_blank" rel="noopener">
+        <span class="lab">BOOTCAMP</span><h3>Data Analytics Bootcamp in Hyderabad</h3>
+        <p>Live online training with real world projects for people moving toward analyst roles.</p><span class="go">Open bootcamp &rarr;</span>
+      </a>
+      <a class="card link c2" href="https://www.justacademy.co/course-detail/hyderabad/microsoft-power-bi-training-in-hyderabad" target="_blank" rel="noopener">
+        <span class="lab">COURSE</span><h3>Microsoft Power BI Training in Hyderabad</h3>
+        <p>Turn raw numbers into dashboards that managers actually read.</p><span class="go">Open course &rarr;</span>
+      </a>
+      <a class="card link c3" href="https://www.justacademy.co/course-detail/hyderabad/tableau-training-in-hyderabad" target="_blank" rel="noopener">
+        <span class="lab">COURSE</span><h3>Tableau Training in Hyderabad</h3>
+        <p>Learn visual storytelling and dashboards that pair well with reporting and analysis roles.</p><span class="go">Open course &rarr;</span>
+      </a>
+    </div>
+
+    <h3 style="margin-bottom:14px">Blog reading list</h3>
+    <div class="lgrid">
+      <a class="card link c4" href="https://www.justacademy.co/blog-detail/how-to-switch-careers-into-it-without-a-technical-background" target="_blank" rel="noopener">
+        <span class="lab">BLOG</span><h3>How to Switch Careers Into IT Without a Technical Background</h3>
+        <p>The full guide behind this page: roles, skills, proof of work and the job search.</p><span class="go">Read blog &rarr;</span>
+      </a>
+      <a class="card link c4" href="https://www.justacademy.co/blog-detail/what-recruiters-expect-from-freshers-entering-it-industry" target="_blank" rel="noopener">
+        <span class="lab">BLOG</span><h3>What Recruiters Expect From Freshers Entering the IT Industry</h3>
+        <p>See your resume through a hiring manager's eyes.</p><span class="go">Read blog &rarr;</span>
+      </a>
+      <a class="card link c4" href="https://www.justacademy.co/blog-detail/online-vs-classroom-training-which-learning-method-works-better" target="_blank" rel="noopener">
+        <span class="lab">BLOG</span><h3>Online vs Classroom Training: Which Works Better?</h3>
+        <p>Pick the learning format that fits your life and your habits.</p><span class="go">Read blog &rarr;</span>
+      </a>
+      <a class="card link c4" href="https://www.justacademy.co/blog-detail/top-it-certifications-that-help-freshers-get-jobs" target="_blank" rel="noopener">
+        <span class="lab">BLOG</span><h3>Top IT Certifications That Help Freshers Get Jobs</h3>
+        <p>Choose certificates with a purpose instead of collecting them like stamps.</p><span class="go">Read blog &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <h4>SwitchDesk</h4>
+      <p style="font-size:.93rem;color:#cbd5e1">An interactive landing page for anyone switching careers into IT without a technical background. Built with plain HTML, CSS and JavaScript, ready for GitHub Pages.</p>
+    </div>
+    <div>
+      <h4>Courses</h4>
+      <a href="https://www.justacademy.co/job-bootcamp-detail/hyderabad/data-analytics-bootcamp-in-hyderabad-online-live-training-with-real-world-projects" target="_blank" rel="noopener">Data Analytics Bootcamp</a>
+      <a href="https://www.justacademy.co/course-detail/hyderabad/microsoft-power-bi-training-in-hyderabad" target="_blank" rel="noopener">Power BI Training</a>
+      <a href="https://www.justacademy.co/course-detail/hyderabad/tableau-training-in-hyderabad" target="_blank" rel="noopener">Tableau Training</a>
+    </div>
+    <div>
+      <h4>Blogs</h4>
+      <a href="https://www.justacademy.co/blog-detail/how-to-switch-careers-into-it-without-a-technical-background" target="_blank" rel="noopener">Switch Careers Into IT</a>
+      <a href="https://www.justacademy.co/blog-detail/what-recruiters-expect-from-freshers-entering-it-industry" target="_blank" rel="noopener">What Recruiters Expect</a>
+      <a href="https://www.justacademy.co/blog-detail/online-vs-classroom-training-which-learning-method-works-better" target="_blank" rel="noopener">Online vs Classroom</a>
+      <a href="https://www.justacademy.co/blog-detail/top-it-certifications-that-help-freshers-get-jobs" target="_blank" rel="noopener">Top IT Certifications</a>
+    </div>
+  </div>
+  <div class="copy">Made for curious beginners. Your first IT ticket is closer than it looks.</div>
+</footer>
+
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+  function $(s,r){return (r||document).querySelector(s)}
+  function toast(t){var el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('show')},2600)}
+
+  /* typing subject */
+  var phrase='I want to work in IT but I have no tech degree',i=0,typed=$('#typed');
+  (function type(){if(i<=phrase.length){typed.textContent=phrase.slice(0,i++);setTimeout(type,45)}})();
+
+  /* count up */
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var end=+el.dataset.count,n=0,step=Math.max(1,Math.round(end/40));
+    var t=setInterval(function(){n+=step;if(n>=end){n=end;clearInterval(t)}el.textContent=n},30);
+  });
+
+  /* hero ticket status */
+  var labels=['OPEN','IN PROGRESS','RESOLVED'],cls=['b-open','b-prog','b-done'];
+  document.querySelectorAll('#steps .step').forEach(function(s){
+    s.addEventListener('click',function(){
+      var k=+s.dataset.s;
+      document.querySelectorAll('#steps .step').forEach(function(x,idx){x.classList.toggle('on',idx===k)});
+      var b=$('#hstatus');b.textContent=labels[k];b.className='badge '+cls[k];
+      if(k===2)toast('Ticket resolved. Welcome to your new career lane!');
+    });
+  });
+
+  /* triage quiz */
+  var questions=[
+    {q:'What do you enjoy most at work?',o:[['Helping people solve problems','support'],['Spotting patterns in numbers','data'],['Keeping things orderly and safe','secure'],['Explaining ideas to others','biz']]},
+    {q:'How do you feel about learning tools?',o:[['Happy to learn step by step','support'],['I love charts and spreadsheets','data'],['I like rules, checks and details','secure'],['I prefer people over software','biz']]},
+    {q:'Pick your ideal Monday morning.',o:[['A queue of problems to fix','support'],['A fresh dataset to explore','data'],['A system to protect or review','secure'],['A client call to guide','biz']]}
+  ];
+  var results={
+    support:{t:'Support and Service Desk',d:'The friendliest doorway into IT. Help desk, service desk and technician roles reward patience and clear communication, and they teach you how a company really runs.',l:'https://www.justacademy.co/blog-detail/what-recruiters-expect-from-freshers-entering-it-industry',b:'See what recruiters expect'},
+    data:{t:'Data and Analysis',d:'Analyst and reporting roles suit people who enjoy patterns. Spreadsheets, queries and dashboards are your toolkit, and projects become your proof.',l:'https://www.justacademy.co/job-bootcamp-detail/hyderabad/data-analytics-bootcamp-in-hyderabad-online-live-training-with-real-world-projects',b:'Explore the Data Analytics bootcamp'},
+    secure:{t:'Infrastructure, Security and Audit',d:'Administration, networking, security and audit roles value detail and care. Many people reach them after a year or two in support, with a certificate to back it up.',l:'https://www.justacademy.co/blog-detail/top-it-certifications-that-help-freshers-get-jobs',b:'Compare useful certifications'},
+    biz:{t:'Business Facing Roles',d:'Business analysis, consulting, sales and coordination roles love communicators with domain knowledge. Your previous industry is your advantage.',l:'https://www.justacademy.co/blog-detail/how-to-switch-careers-into-it-without-a-technical-background',b:'Read the full switching guide'}
+  };
+  var qi=0,score={support:0,data:0,secure:0,biz:0};
+  function renderQ(){
+    var box=$('#qbox');
+    if(qi>=questions.length){box.innerHTML='<h3>Triage complete</h3><p style="margin-bottom:14px">Your result is on the right.</p><button class="btn alt" id="redo">Try again</button>';
+      $('#redo').onclick=function(){qi=0;score={support:0,data:0,secure:0,biz:0};$('#qbar').style.width='0';resetRes();renderQ()};return}
+    var q=questions[qi];
+    box.innerHTML='<h3>'+(qi+1)+'. '+q.q+'</h3><div class="opts"></div>';
+    var wrap=$('.opts',box);
+    q.o.forEach(function(op){
+      var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=op[0];
+      b.onclick=function(){b.classList.add('sel');score[op[1]]++;qi++;$('#qbar').style.width=(qi/questions.length*100)+'%';
+        setTimeout(function(){renderQ();if(qi>=questions.length)showRes()},260)};
+      wrap.appendChild(b);
+    });
+  }
+  function resetRes(){var r=$('#qres');r.innerHTML='<span class="kicker">YOUR RESULT WILL APPEAR HERE</span><h3>Waiting for your answers</h3><p>Pick an option on the left to begin. Each answer nudges you toward a lane.</p>'}
+  function showRes(){
+    var best='support';Object.keys(score).forEach(function(k){if(score[k]>score[best])best=k});
+    var r=results[best];
+    $('#qres').innerHTML='<span class="kicker">YOUR LANE</span><h3>'+r.t+'</h3><p>'+r.d+'</p><a class="btn" href="'+r.l+'" target="_blank" rel="noopener">'+r.b+' &rarr;</a>';
+    toast('Triage complete. Lane found!');
+  }
+  renderQ();
+
+  /* translator */
+  var jobs={
+    'Teacher':['Explained complex ideas, managed a class of thirty and tracked progress.','User training, documentation, patient communication and support ticket handling.',['Support','Training','Documentation']],
+    'Banker':['Handled reconciliations, compliance checks and customer queries.','Process accuracy, risk awareness, audit readiness and data checking.',['Audit','Analysis','Compliance']],
+    'Shop Owner':['Managed stock, billing, customers and daily problem solving.','Inventory systems, customer escalation, vendor coordination and reliability.',['Operations','Service desk','Consulting']],
+    'Nurse':['Recorded patient data, followed strict protocols, stayed calm in emergencies.','Healthcare IT, data accuracy, protocol discipline and calm incident handling.',['Healthcare IT','Support','Data']],
+    'Sales Executive':['Pitched products, handled objections and built client relationships.','IT sales, solution explanation, client onboarding and account coordination.',['IT sales','Consulting','Customer success']],
+    'Returning Homemaker':['Planned budgets, coordinated schedules and juggled many priorities.','Project coordination, planning, resource tracking and strong ownership.',['Coordination','Planning','Help desk']]
+  };
+  var chips=$('#chips');
+  Object.keys(jobs).forEach(function(k,idx){
+    var b=document.createElement('button');b.className='chip';b.type='button';b.textContent=k;
+    b.onclick=function(){pick(k)};chips.appendChild(b);
+  });
+  function pick(k){
+    document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.textContent===k)});
+    $('#from').textContent=jobs[k][0];$('#to').textContent=jobs[k][1];
+    $('#tpills').innerHTML=jobs[k][2].map(function(p){return '<span class="pill">'+p+'</span>'}).join('');
+  }
+  pick('Teacher');
+
+  /* role map */
+  var roles=[
+    ['&#127911;','Support','Help desk, service desk, technician and field support.','Resetting accounts, fixing common software and hardware issues, logging tickets and escalating when needed.',['Beginner friendly','Fast entry']],
+    ['&#128268;','Infrastructure','Administrator and networking roles.','Managing users, servers, backups and the connections that keep offices online.',['Grows from support','Hands on']],
+    ['&#128737;','Security and Audit','Protect systems and check the rules.','Watching for risks, reviewing controls and making sure processes follow standards.',['Detail lovers','High demand']],
+    ['&#128200;','Data and Analysis','IT analyst and business analyst paths.','Studying data and processes, building dashboards and explaining findings in plain language.',['Pattern spotters','Great for switchers']],
+    ['&#128188;','Business Facing','IT sales, consulting and coordination.','Explaining technology to clients, advising on tools and coordinating projects.',['Communicators','Domain knowledge wins']]
+  ];
+  var rg=$('#rolegrid');
+  roles.forEach(function(r){
+    var d=document.createElement('div');d.className='card role';d.tabIndex=0;
+    d.innerHTML='<div class="ico">'+r[0]+'</div><h3>'+r[1]+'</h3><p>'+r[2]+'</p><div class="more"><p>'+r[3]+'</p>'+r[4].map(function(p){return '<span class="pill">'+p+'</span>'}).join('')+'</div>';
+    function tog(){d.classList.toggle('open')}
+    d.onclick=tog;d.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tog()}};
+    rg.appendChild(d);
+  });
+
+  /* ninety day board */
+  var plan=[
+    ['Month One','Foundations',['Learn how operating systems, files and permissions work','Understand basic networking in plain language','Practise explaining a fix out loud','Pick one main lane and one backup']],
+    ['Month Two','Tools and Proof',['Build two small projects and write them up','Learn spreadsheets, simple queries or a ticketing tool','Do three mock interviews out loud','Talk to two people working in your target role']],
+    ['Month Three','Apply and Adjust',['Tailor your resume using your old career story','Apply to a few roles every week','Track feedback from every application','Adjust and repeat what is working']]
+  ];
+  var saved={};try{saved=JSON.parse(localStorage.getItem('switchdesk')||'{}')}catch(e){}
+  var bg=$('#boardgrid'),total=0;
+  plan.forEach(function(c,ci){
+    var col=document.createElement('div');col.className='card col';
+    col.innerHTML='<h3><span>'+c[0]+'</span><span class="badge b-prog">'+c[1]+'</span></h3>';
+    c[2].forEach(function(t,ti){
+      total++;var key=ci+'_'+ti;
+      var el=document.createElement('div');el.className='task'+(saved[key]?' done':'');
+      el.innerHTML='<span class="box">'+(saved[key]?'&#10003;':'')+'</span><span>'+t+'</span>';
+      el.onclick=function(){saved[key]=!saved[key];el.classList.toggle('done',!!saved[key]);$('.box',el).innerHTML=saved[key]?'&#10003;':'';
+        try{localStorage.setItem('switchdesk',JSON.stringify(saved))}catch(e){}update(true)};
+      col.appendChild(el);
+    });
+    bg.appendChild(col);
+  });
+  function update(fromClick){
+    var n=Object.keys(saved).filter(function(k){return saved[k]}).length;
+    $('#plabel').textContent=n+' of '+total+' tickets resolved';
+    $('#pbar').style.width=(n/total*100)+'%';
+    var m=n===0?'Everything starts with one small ticket.':n<4?'Nice start. Keep the momentum going.':n<8?'You are building real evidence. Keep going.':n<total?'Almost there. Time to apply with confidence.':'All tickets resolved. You are ready to go and get hired!';
+    $('#pmsg').textContent=m;
+    if(fromClick&&n===total)toast('Board cleared! Go celebrate, then go apply.');
+  }
+  update(false);
+})();
+</script>
+</body>
+</html>
